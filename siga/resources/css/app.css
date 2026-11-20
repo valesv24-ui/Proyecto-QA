@@ -1,0 +1,2045 @@
+@import "tailwindcss";
+@import "../../vendor/livewire/flux/dist/flux.css";
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-zinc-50: #fafafa;
+  --color-zinc-100: #f5f5f5;
+  --color-zinc-200: #e5e5e5;
+  --color-zinc-300: #d4d4d4;
+  --color-zinc-400: #a3a3a3;
+  --color-zinc-500: #737373;
+  --color-zinc-600: #525252;
+  --color-zinc-700: #404040;
+  --color-zinc-800: #262626;
+  --color-zinc-900: #171717;
+  --color-zinc-950: #0a0a0a;
+
+  --color-accent: var(--color-neutral-800);
+  --color-accent-content: var(--color-neutral-800);
+  --color-accent-foreground: var(--color-white);
+}
+
+@layer theme {
+  .dark {
+    --color-accent: var(--color-white);
+    --color-accent-content: var(--color-white);
+    --color-accent-foreground: var(--color-neutral-800);
+  }
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+  @apply grid gap-2;
+}
+
+[data-flux-label] {
+  @apply !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+  @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+@theme {
+  --color-siga-brand: #0b3d78;
+  --color-siga-brand-hover: #16549e;
+  --font-merriweather: "Merriweather", serif;
+  --font-source: "Source Sans 3", sans-serif;
+}
+
+@layer base {
+  html,
+  body {
+    @apply font-source m-0 overflow-x-hidden antialiased;
+  }
+}
+
+@layer components {
+  :root {
+    --appBg: #eef2f9;
+    --sidebarBg: #ffffff;
+    --sidebarBorder: #e4e9f5;
+    --topbarBg: #ffffff;
+    --cardBg: #ffffff;
+    --border: #e4e9f5;
+    --textPrimary: #0b1b33;
+    --textSecondary: #5b6b87;
+    --textMuted: #8a97ad;
+    --navActiveBg: #e7eefb;
+    --navActiveText: #0b3c8c;
+    --navText: #3e4c63;
+    --primary: #0b3c8c;
+    --primarySoft: #dce7fa;
+    --tableHeadBg: #f6f8fc;
+    --shadow: 0 1px 2px rgba(15, 32, 68, 0.06);
+    --logout: #b42318;
+    --font-zoom: 1;
+
+    /* Role "Tipo" / generic status badges. Defined as tokens (not inline
+       hex per-row) specifically so they adapt to [data-theme="dark"]
+       automatically, unlike the original static mock which recomputed
+       inline styles in JS based on a dark-mode flag. */
+    --badgeSystemBg: #e2e8f2;
+    --badgeSystemText: #1a3868;
+    --badgeCustomBg: #e6f0e2;
+    --badgeCustomText: #4a8f3c;
+    /* Paleta semántica de badges (5 pares suave/sólido). Antes solo había
+       dos variantes, así que casi todos los estados terminaban pintados del
+       mismo verde y el color no comunicaba nada. */
+    --badgeNeutralBg: #eef1f6;
+    --badgeNeutralText: #1c2434;
+    --badgeNeutralSolidBg: #101828;
+    --badgeInfoBg: #e4edfd;
+    --badgeInfoText: #1c62e8;
+    --badgeInfoSolidBg: #1f6feb;
+    --badgeSuccessBg: #e3f6ea;
+    --badgeSuccessText: #1a8f45;
+    --badgeSuccessSolidBg: #1fa251;
+    --badgeWarningBg: #fdf3d7;
+    --badgeWarningText: #a97706;
+    --badgeWarningSolidBg: #d98207;
+    --badgeDangerBg: #fdeaea;
+    --badgeDangerText: #d92d20;
+    --badgeDangerSolidBg: #e5342a;
+    --badgeSolidText: #ffffff;
+
+    /* Row action icons — matches the approved design's edit (amber) /
+       delete (red) circular icon buttons exactly. */
+    --actionViewBg: #e2ecfb;
+    --actionViewText: #0b3c8c;
+    --actionEditBg: #fff3d6;
+    --actionEditText: #93650b;
+    --actionDeleteBg: #fde7e7;
+    --actionDeleteText: #b42318;
+  }
+  [data-theme="dark"] {
+    --appBg: #060d1c;
+    --sidebarBg: #0c1830;
+    --sidebarBorder: #2a3f68;
+    --topbarBg: #0c1830;
+    --cardBg: #101f3e;
+    --border: #2e4470;
+    --textPrimary: #f7faff;
+    --textSecondary: #c3d1ec;
+    --textMuted: #93a4c7;
+    --navActiveBg: #20396a;
+    --navActiveText: #d8e4fc;
+    --navText: #bccae8;
+    --primary: #82acf7;
+    --primarySoft: #1c3564;
+    --tableHeadBg: #0f1e3b;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+    --logout: #ff8686;
+
+    --badgeSystemBg: #1c2c4d;
+    --badgeSystemText: #a9c0ec;
+    --badgeCustomBg: #16321f;
+    --badgeCustomText: #7fd28f;
+    --badgeNeutralBg: #232b3a;
+    --badgeNeutralText: #cbd4e4;
+    --badgeNeutralSolidBg: #0b101c;
+    --badgeInfoBg: #16294a;
+    --badgeInfoText: #82acf7;
+    --badgeInfoSolidBg: #2f6fd8;
+    --badgeSuccessBg: #12301f;
+    --badgeSuccessText: #6fd394;
+    --badgeSuccessSolidBg: #1a8a46;
+    --badgeWarningBg: #33270c;
+    --badgeWarningText: #e9b44c;
+    --badgeWarningSolidBg: #b06b06;
+    --badgeDangerBg: #3a1614;
+    --badgeDangerText: #f28b84;
+    --badgeDangerSolidBg: #c22d24;
+    --badgeSolidText: #ffffff;
+
+    --actionViewBg: #16294a;
+    --actionViewText: #82acf7;
+    --actionEditBg: #3a2c0e;
+    --actionEditText: #f2c063;
+    --actionDeleteBg: #3a1620;
+    --actionDeleteText: #ff9b9b;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(11, 60, 140, 0.25);
+    border-radius: 8px;
+  }
+
+  .nav-item:not(.active):hover,
+  .nav-child:not(.active):hover {
+    background: var(--navActiveBg);
+    opacity: 0.7;
+  }
+  .app {
+    display: flex;
+    /* height y no min-height: con min-height, .app crecía más allá del
+       viewport en páginas con mucho contenido, y como nada más lo topaba,
+       la página entera (html/body) terminaba haciendo scroll — arrastrando
+       el sidebar y el topbar con ella en vez de dejarlos fijos. Con height
+       fijo a 100vh y overflow:hidden acá, .content (que ya tenía
+       overflow:auto) pasa a ser el único que hace scroll. */
+    height: 100vh;
+    overflow: hidden;
+    width: 100%;
+    background: var(--appBg);
+    color: var(--textPrimary);
+    transition: background 0.2s;
+    position: relative;
+    zoom: var(--font-zoom);
+  }
+  .backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 13, 28, 0.55);
+    z-index: 39;
+  }
+  .backdrop.show {
+    display: block;
+  }
+
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--sidebarBg);
+    border-right: 1px solid var(--sidebarBorder);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 14px;
+    gap: 22px;
+  }
+  .sidebar.collapsed {
+    width: 76px;
+  }
+  .sidebar.collapsed:hover {
+    width: 260px;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 30;
+  }
+  .sidebar.collapsed [data-labels] {
+    display: none;
+  }
+  .sidebar.collapsed:hover [data-labels] {
+    display: flex;
+  }
+  .sidebar.collapsed .nav-text,
+  .sidebar.collapsed .nav-label {
+    display: none;
+  }
+  .sidebar.collapsed:hover .nav-text,
+  .sidebar.collapsed:hover .nav-label {
+    display: inline;
+  }
+  .sidebar.collapsed .logo-row {
+    justify-content: center;
+    padding: 0;
+  }
+  .sidebar.collapsed:hover .logo-row {
+    justify-content: flex-start;
+    padding: 0 6px;
+  }
+  .sidebar.collapsed .logo-img {
+    width: 30px;
+  }
+  [data-theme="dark"] .sidebar.collapsed .logo-wrap {
+    padding: 4px;
+  }
+  .sidebar.collapsed:hover .logo-img {
+    width: 42px;
+  }
+  [data-theme="dark"] .sidebar.collapsed:hover .logo-wrap {
+    padding: 5px 6px;
+  }
+  .sidebar.collapsed .nav-item,
+  .sidebar.collapsed .nav-parent {
+    justify-content: center;
+    padding: 11px 0;
+  }
+  .sidebar.collapsed:hover .nav-item,
+  .sidebar.collapsed:hover .nav-parent {
+    justify-content: flex-start;
+    padding: 11px 14px;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 6px;
+    min-width: 0;
+  }
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  [data-theme="dark"] .logo-wrap {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 5px 6px;
+  }
+  .logo-img {
+    width: 42px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .logo-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--textPrimary);
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .logo-sub {
+    font-size: 11px;
+    color: var(--textMuted);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+  }
+  .nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .nav-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--textMuted);
+    letter-spacing: 0.6px;
+    padding: 0 12px;
+    margin-bottom: 2px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--navText);
+    background: transparent;
+    border-left: 3px solid transparent;
+    transition: background 0.15s;
+  }
+  .nav-item.active {
+    font-weight: 600;
+    color: var(--navActiveText);
+    background: var(--navActiveBg);
+    border-left-color: var(--primary);
+  }
+  .nav-item svg {
+    flex-shrink: 0;
+  }
+  .nav-text {
+    flex: 1;
+  }
+  .nav-chevron {
+    flex-shrink: 0;
+  }
+  .chevron-toggle {
+    transition: transform 0.15s;
+    transform: rotate(-90deg);
+  }
+  .chevron-toggle.open {
+    transform: rotate(0deg);
+  }
+
+  .nav-children {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: 18px;
+  }
+  .nav-children.open {
+    display: flex;
+  }
+  .nav-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navText);
+  }
+  .nav-child.active {
+    font-weight: 600;
+    color: var(--navActiveText);
+    background: var(--navActiveBg);
+  }
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .topbar {
+    height: 64px;
+    flex-shrink: 0;
+    background: var(--topbarBg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    position: relative;
+    z-index: 20;
+  }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--textSecondary);
+    flex-shrink: 0;
+  }
+  .icon-btn.round {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--primarySoft);
+    color: var(--primary);
+  }
+  .title-wrap {
+    min-width: 0;
+  }
+  .title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--textPrimary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .subtitle {
+    font-size: 12.5px;
+    color: var(--textMuted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+  }
+  .font-switch {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--primarySoft);
+    border-radius: 10px;
+    padding: 3px;
+  }
+  .font-btn {
+    padding: 5px 8px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--primary);
+  }
+  .font-btn.active {
+    color: #fff;
+    background: var(--primary);
+  }
+
+  .profile-wrap {
+    position: relative;
+  }
+  .profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 10px;
+  }
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  #profileChevron {
+    stroke: var(--textSecondary);
+    flex-shrink: 0;
+    transition: transform 0.15s;
+  }
+  #profileChevron.open {
+    transform: rotate(180deg);
+  }
+
+  .profile-menu {
+    display: none;
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: min(240px, calc(100vw - 28px));
+    background: var(--cardBg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(10, 20, 40, 0.18);
+    overflow: hidden;
+  }
+  .profile-menu.open {
+    display: block;
+  }
+  .profile-head {
+    padding: 16px;
+    background: var(--primary);
+    color: #fff;
+  }
+  .profile-name {
+    font-size: 14.5px;
+    font-weight: 700;
+  }
+  .profile-role {
+    font-size: 12px;
+    opacity: 0.85;
+  }
+  .profile-items {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-item {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--textPrimary);
+    cursor: pointer;
+  }
+  .profile-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+  .profile-item.logout {
+    color: var(--logout);
+  }
+
+  .content {
+    flex: 1;
+    overflow: auto;
+    padding: 26px 28px 40px;
+  }
+  .blank-panel {
+    background: #ffffff;
+    border-radius: 14px;
+    min-height: 60vh;
+  }
+
+  /* ---------------------------------------------------------------
+     Boleta SLR-002: justificaciones y notas importantes.
+
+     Las cinco opciones se muestran todas a la vez, como en el papel: son
+     frases largas que hay que leer y comparar antes de marcar, y un
+     desplegable las escondería. De ahí el radio con el texto completo al
+     lado en vez de un <select>.
+     --------------------------------------------------------------- */
+  .justification-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .justification-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    line-height: 1.45;
+  }
+  .justification-option:hover {
+    border-color: var(--textMuted);
+  }
+  .justification-option.is-selected {
+    border-color: var(--badgeInfoText);
+    background: var(--badgeInfoBg);
+  }
+  .justification-option input {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+  .terms-box {
+    margin: 18px 0;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--badgeWarningBg);
+  }
+  .terms-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .terms-list {
+    margin: 0 0 12px 18px;
+    padding: 0;
+    line-height: 1.5;
+    font-size: 13px;
+  }
+  .terms-list li + li {
+    margin-top: 6px;
+  }
+  .terms-accept {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .terms-accept input {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+  /* El cuerpo de la boleta (banner de estado, cada form-field, la caja de
+     notas importantes, el botón de enviar) vive suelto dentro de un
+     <div style="padding:20px"> sin ningún wrapper con gap — a diferencia de
+     .modal-body, que ya trae gap:18px para los formularios de Roles,
+     Permisos, etc. — así que se veían todos pegados unos a otros. */
+  .request-form-body > * + * {
+    margin-top: 20px;
+  }
+
+  /* ---------------------------------------------------------------
+     Cards de resumen del panel principal (ES-03/ES-04).
+
+     Reutilizan las variables de color de los badges de estado en vez de
+     definir sus propias: el ámbar de "por vencer" y el rojo de "vencida"
+     tienen que ser EXACTAMENTE los mismos que la bandeja usa en sus
+     badges, o el panel enseñaría un código de color y la bandeja otro.
+     --------------------------------------------------------------- */
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .summary-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 18px;
+    background: var(--cardBg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+  .summary-card.is-warning {
+    border-color: var(--badgeWarningText);
+    background: var(--badgeWarningBg);
+  }
+  .summary-card.is-danger {
+    border-color: var(--badgeDangerText);
+    background: var(--badgeDangerBg);
+  }
+  .summary-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--textMuted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .summary-value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--textPrimary);
+  }
+  .summary-hint {
+    font-size: 12px;
+    color: var(--textMuted);
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .summary-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 20px;
+  }
+  .summary-breakdown > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-row:last-child {
+    border-bottom: none;
+  }
+
+  /* ---------------------------------------------------------------
+     Card / data-table primitives — shared by every CRUD screen
+     (Roles, Permissions, and any future module using <x-ui.data-table>).
+     Ported 1:1 from the approved design (styles.css) so visual output
+     matches exactly; only the grid-template-columns proportions are
+     computed per-table since each CRUD has a different column count.
+     --------------------------------------------------------------- */
+  .card {
+    width: 100%;
+    background: var(--cardBg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--textPrimary);
+  }
+  .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  .btn-orange {
+    background: #d9770e;
+  }
+  .btn-primary {
+    background: var(--primary);
+  }
+  .btn-secondary {
+    background: #6b7a94;
+  }
+  .download-wrap {
+    position: relative;
+  }
+  .download-menu {
+    display: none;
+    position: absolute;
+    top: 44px;
+    right: 0;
+    width: 200px;
+    background: var(--cardBg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(10, 20, 40, 0.18);
+    overflow: hidden;
+    z-index: 10;
+  }
+  .download-menu.open {
+    display: block;
+  }
+  /* Menú de acciones por fila. Igual que .download-menu en apariencia, pero
+     `fixed` en vez de `absolute`: dentro de la tabla, un menú absoluto queda
+     recortado por .card (overflow:hidden) y por .table-scroll (overflow-x
+     auto, que según la especificación vuelve el overflow-y auto también y
+     por eso corta hacia abajo). Las coordenadas las calcula
+     resources/js/row-actions-menu.js al abrir. */
+  .row-actions-menu {
+    display: none;
+    position: fixed;
+    background: var(--cardBg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(10, 20, 40, 0.18);
+    overflow: hidden;
+    z-index: 1000;
+  }
+  .row-actions-menu.open {
+    display: block;
+  }
+  /* Realimentación al pasar el mouse: a diferencia del menú de descarga
+     (dos opciones fijas), este es una lista de acciones donde una de ellas
+     resuelve una solicitud — conviene ver con claridad cuál se va a activar. */
+  .row-actions-menu .download-item:hover {
+    background: var(--rowHover, rgba(11, 60, 140, 0.06));
+  }
+  .download-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-family: inherit;
+  }
+  .download-item svg {
+    flex-shrink: 0;
+  }
+  .download-item span {
+    font-size: 13.5px;
+    color: var(--textPrimary);
+    font-weight: 600;
+  }
+  .download-divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  .card-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--textMuted);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  .control-group select {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--cardBg);
+    color: var(--textPrimary);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .control-group input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--cardBg);
+    color: var(--textPrimary);
+    font-size: 13.5px;
+    width: 200px;
+  }
+
+  /* Barra de pestañas horizontal, para pantallas con varias vistas dentro
+     de una misma card (p. ej. Solicitudes Estudiantiles: nueva solicitud de
+     levantamiento / de convalidación / mis solicitudes / bandeja de
+     Docencia). No reutiliza .card-controls + .btn a propósito: esas clases
+     son para la fila de "Mostrar/Buscar" de una tabla, con botones sólidos
+     de colores distintos (naranja, azul, gris) pensados para acciones, no
+     para marcar en qué pestaña se está — de ahí lo apretado y desparejo
+     que se veía usadas como si fueran pestañas. */
+  .request-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 14px;
+  }
+  .request-tab {
+    display: flex;
+    align-items: center;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--textSecondary);
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .request-tab:hover:not(.active) {
+    background: var(--navActiveBg);
+    color: var(--textPrimary);
+  }
+  .request-tab.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(15, 32, 68, 0.15);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  /* Tabla del expediente del estudiante, dentro del modal de detalle de una
+     solicitud. Es una <table> de verdad y no el grid de .data-row: acá el
+     contenido SÍ es tabular y de ancho variable (nombres de curso largos
+     junto a notas de cinco caracteres), y dejar que el navegador reparta las
+     columnas da mejor resultado que fijarlas con --table-cols. Además nunca
+     lleva menú de acciones, que es lo que obligaba al grid en las bandejas. */
+  /* Encabezado plegable del expediente. Es un <button> y no un <summary>
+     porque el estado de plegado lo lleva el componente Livewire, no el
+     navegador: ver el comentario en la vista. */
+  /* Filas de cursos a convalidar. Grid y no <table>: cada celda lleva un
+     control de formulario con su propio mensaje de error debajo, y una tabla
+     obligaría a meter el error dentro de la celda o a una fila extra que
+     rompe la alineación de las columnas. */
+  .course-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .course-row {
+    display: grid;
+    grid-template-columns: 1.6fr 1.4fr 1.4fr 44px;
+    gap: 10px;
+    align-items: start;
+  }
+  .course-row-head {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--textMuted);
+  }
+  .course-row select,
+  .course-row input[type="text"] {
+    width: 100%;
+  }
+  /* En pantallas angostas las tres columnas se apilan; el encabezado deja de
+     tener sentido ahí y se esconde, porque una fila de rótulos sobre campos
+     apilados etiquetaría el primero y mentiría sobre los otros dos. */
+  @media (max-width: 720px) {
+    .course-row {
+      grid-template-columns: 1fr;
+    }
+    .course-row-head {
+      display: none;
+    }
+  }
+
+  .record-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    color: var(--textPrimary);
+    text-align: left;
+  }
+
+  .record-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 560px;
+  }
+  .record-table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--textMuted);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .record-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--textPrimary);
+  }
+  .record-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .table-inner {
+    min-width: 640px;
+  }
+  /* --table-cols is set per-view on .table-inner (each CRUD has a
+     different column count), e.g. style="--table-cols: 2.2fr 1.3fr 1fr 1fr;" */
+  .data-row {
+    display: grid;
+    grid-template-columns: var(--table-cols, 1fr);
+    padding: 13px 20px;
+    align-items: center;
+    font-size: 13.5px;
+    color: var(--textPrimary);
+    border-top: 1px solid var(--border);
+  }
+  .data-row-head {
+    display: grid;
+    grid-template-columns: var(--table-cols, 1fr);
+    background: var(--tableHeadBg);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--textMuted);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border-top: none;
+    padding: 12px 20px;
+    cursor: default;
+  }
+  .data-row-head > span[data-sortable] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .name-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .name-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11.5px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .name-text {
+    font-weight: 600;
+    color: var(--primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .module-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    background: var(--primarySoft);
+    color: var(--primary);
+    width: fit-content;
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    width: fit-content;
+  }
+  .status-badge.system {
+    background: var(--badgeSystemBg);
+    color: var(--badgeSystemText);
+  }
+  .status-badge.custom {
+    background: var(--badgeCustomBg);
+    color: var(--badgeCustomText);
+  }
+  /* Variantes semánticas. La suave es la forma normal; la sólida se reserva
+     para lo que exige acción ahora (una solicitud vencida), para que
+     destaque entre varias filas sin depender solo del texto. */
+  /* Avance del trámite en el detalle de una solicitud. Los pasos no
+     alcanzados se muestran atenuados en vez de ocultarse: el estudiante
+     necesita ver qué falta, no solo dónde está. */
+  .request-progress {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    align-items: center;
+  }
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    opacity: 0.4;
+  }
+  .progress-step.reached {
+    opacity: 1;
+  }
+  .progress-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 2px solid var(--textMuted);
+    flex-shrink: 0;
+  }
+  .progress-step.reached .progress-dot {
+    background: var(--badgeSuccessSolidBg);
+    border-color: var(--badgeSuccessSolidBg);
+  }
+  .progress-step.current .progress-dot {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
+  }
+  .progress-label {
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .status-badge.neutral {
+    background: var(--badgeNeutralBg);
+    color: var(--badgeNeutralText);
+  }
+  .status-badge.neutral-solid {
+    background: var(--badgeNeutralSolidBg);
+    color: var(--badgeSolidText);
+  }
+  .status-badge.info {
+    background: var(--badgeInfoBg);
+    color: var(--badgeInfoText);
+  }
+  .status-badge.info-solid {
+    background: var(--badgeInfoSolidBg);
+    color: var(--badgeSolidText);
+  }
+  .status-badge.success {
+    background: var(--badgeSuccessBg);
+    color: var(--badgeSuccessText);
+  }
+  .status-badge.success-solid {
+    background: var(--badgeSuccessSolidBg);
+    color: var(--badgeSolidText);
+  }
+  .status-badge.warning {
+    background: var(--badgeWarningBg);
+    color: var(--badgeWarningText);
+  }
+  .status-badge.warning-solid {
+    background: var(--badgeWarningSolidBg);
+    color: var(--badgeSolidText);
+  }
+  .status-badge.danger {
+    background: var(--badgeDangerBg);
+    color: var(--badgeDangerText);
+  }
+  .status-badge.danger-solid {
+    background: var(--badgeDangerSolidBg);
+    color: var(--badgeSolidText);
+  }
+  .actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .action-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    flex-shrink: 0;
+  }
+  .action-icon.view {
+    background: var(--actionViewBg);
+    color: var(--actionViewText);
+  }
+  .action-icon.edit {
+    background: var(--actionEditBg);
+    color: var(--actionEditText);
+  }
+  .action-icon.delete {
+    background: var(--actionDeleteBg);
+    color: var(--actionDeleteText);
+  }
+  .empty-row {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--textMuted);
+    font-size: 13.5px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--textMuted);
+  }
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .page-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    color: var(--textSecondary);
+    background: transparent;
+    font-family: inherit;
+  }
+  .page-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  .page-btn.disabled,
+  .page-btn:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+  .page-ellipsis {
+    padding: 8px 4px;
+    color: var(--textMuted);
+  }
+
+  /* ---------------------------------------------------------------
+     Modal — shared shell for every create/edit CRUD form.
+     --------------------------------------------------------------- */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 13, 28, 0.5);
+    z-index: 60;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-backdrop.open {
+    display: flex;
+  }
+  .modal {
+    background: var(--cardBg);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  }
+  /* Modal ancho: solo para contenido tabular o de dos columnas (el detalle
+     de una solicitud con el expediente del estudiante). El resto de los
+     modales del sistema son formularios de pocos campos y se leen mejor
+     angostos. */
+  .modal-wide {
+    max-width: 1080px;
+  }
+  /* Cuerpo del detalle en dos columnas cuando hay ancho para ello, y en una
+     sola cuando no — de ahí auto-fit y no un número fijo de columnas: en una
+     pantalla angosta o con la fuente ampliada (el sistema tiene control de
+     tamaño de fuente por accesibilidad) dos columnas de 260px no caben, y
+     forzarlas produciría el desbordamiento que este cambio vino a quitar. */
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px 24px;
+    align-items: start;
+  }
+  /* Lo que no es un par etiqueta/valor ocupa el ancho completo: el
+     expediente, los adjuntos, el historial y los botones de acción. */
+  .detail-grid > .detail-span {
+    grid-column: 1 / -1;
+  }
+
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--textPrimary);
+  }
+  .modal-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--textMuted);
+    border: none;
+    background: transparent;
+  }
+  .modal-body {
+    padding: 20px 22px;
+    overflow-y: auto;
+    /* Sin esto, al llegar al final del scroll del modal la rueda del mouse
+       seguía "encadenando" el scroll hacia la página de fondo — el fondo
+       detrás del modal debería quedarse fijo, y en cambio se movía. No hay
+       bloqueo de scroll en el body vía JS en ningún lado del proyecto, así
+       que overscroll-behavior es lo único que corta esa cadena. */
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .form-field label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--textPrimary);
+  }
+  .form-field input[type="text"],
+  .form-field textarea {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--cardBg);
+    color: var(--textPrimary);
+    font-size: 13.5px;
+    font-family: inherit;
+    width: 100%;
+  }
+  .form-field input[type="text"]:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(11, 60, 140, 0.12);
+  }
+  .form-field input.has-error,
+  .form-field textarea.has-error {
+    border-color: var(--logout);
+  }
+  /* Reemplazo propio del <select> nativo (ver resources/js/course-select.ts):
+     el botón se ve igual que un input de .form-field, y la lista es
+     `position: fixed` por el mismo motivo que .row-actions-menu — dentro de
+     .modal-body (overflow-y: auto) un menú absoluto quedaría recortado. */
+  .course-select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--cardBg);
+    color: var(--textPrimary);
+    font-size: 13.5px;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+  }
+  .course-select-trigger.is-placeholder {
+    color: var(--textMuted);
+  }
+  .course-select-trigger::after {
+    content: "";
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--textMuted);
+    border-bottom: 2px solid var(--textMuted);
+    transform: rotate(45deg);
+    margin-top: -4px;
+  }
+  .course-select-trigger:focus-visible,
+  .course-select-trigger.is-open {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(11, 60, 140, 0.12);
+  }
+  .course-select-trigger.has-error {
+    border-color: var(--logout);
+  }
+  .course-select-trigger:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .course-select-menu {
+    display: none;
+    position: fixed;
+    background: var(--cardBg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(10, 20, 40, 0.18);
+    max-height: 260px;
+    overflow-y: auto;
+    /* Mismo motivo que .modal-body: una lista larga de cursos no debe
+       encadenar el scroll hacia el modal que la contiene. */
+    overscroll-behavior: contain;
+    z-index: 1000;
+    padding: 6px;
+  }
+  .course-select-menu.open {
+    display: block;
+  }
+  .course-select-option {
+    display: block;
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-family: inherit;
+    font-size: 13.5px;
+    color: var(--textPrimary);
+    cursor: pointer;
+    /* A diferencia de .download-item, acá el texto puede ser largo (código +
+       nombre del curso) y debe leerse completo en vez de cortarse. */
+    white-space: normal;
+    word-break: break-word;
+  }
+  .course-select-option:hover,
+  .course-select-option.is-selected {
+    background: var(--rowHover, rgba(11, 60, 140, 0.06));
+  }
+  .course-select-empty {
+    padding: 9px 10px;
+    font-size: 13.5px;
+    color: var(--textMuted);
+  }
+  .form-field textarea {
+    resize: none;
+  }
+  .form-error {
+    font-size: 12.5px;
+    color: var(--logout);
+  }
+
+  /* Aclaración bajo un campo: informa, no señala un error. */
+  .form-hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--textMuted);
+  }
+
+  /* Zona de arrastrar-y-soltar para los adjuntos de las solicitudes
+     (ES-02). Los <input type="file"> reales siguen ahí (necesarios para
+     que wire:model funcione, uno por documento) pero quedan ocultos
+     visualmente — igual que hace cualquier botón "Subir foto" en el resto
+     de la web — dentro de una sola zona visual, sin ningún desglose por
+     documento en pantalla (ver <x-ui.multi-file-dropzone>). */
+  .dropzone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    padding: 22px 16px;
+    border: 1.5px dashed var(--border);
+    border-radius: 10px;
+    background: var(--appBg);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .dropzone:hover {
+    border-color: var(--primary);
+  }
+  .dropzone.is-dragging {
+    border-color: var(--primary);
+    background: var(--primarySoft);
+  }
+  .dropzone.has-error {
+    border-color: var(--logout);
+  }
+  .dropzone-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .dropzone-icon {
+    color: var(--textMuted);
+  }
+  .dropzone-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--textPrimary);
+    word-break: break-all;
+  }
+  .dropzone-hint {
+    font-size: 12px;
+    color: var(--textMuted);
+  }
+  .dropzone-file-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 4px;
+    cursor: default;
+  }
+  .dropzone-file-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--appBg);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--textPrimary);
+    max-width: 220px;
+  }
+  .dropzone-file-item span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dropzone-file-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--textMuted);
+    cursor: pointer;
+    border-radius: 999px;
+    /* El icono mide 12px; el área que responde al click llega a 18 para que
+       el botón se pueda acertar sin apuntar con precisión — sin agrandar la
+       píldora, porque el nombre del archivo es lo que hay que poder leer. */
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  /* Los mismos tokens de "peligro" que ya usan los badges y el modal de
+     borrado: quitar un adjunto es la única acción destructiva de este
+     formulario, y debe verse igual que el resto de las destructivas del
+     sistema en vez de estrenar un rojo propio. En reposo queda gris —el
+     rojo permanente pondría la advertencia antes de la intención. */
+  .dropzone-file-remove:hover {
+    color: var(--badgeDangerText);
+    background: var(--badgeDangerBg);
+  }
+  .dropzone-file-remove:focus-visible {
+    outline: 2px solid var(--badgeDangerText);
+    outline-offset: 1px;
+  }
+  .permissions-list {
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Mismo motivo que .modal-body: sin esto, llegar al final de esta lista
+       encadenaba el scroll hacia el modal que la contiene. */
+    overscroll-behavior: contain;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .permission-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--textPrimary);
+    font-weight: 400;
+  }
+  .permission-item input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .permission-item span {
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+  .permission-empty {
+    padding: 10px;
+    font-size: 13px;
+    color: var(--textMuted);
+    text-align: center;
+  }
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---------------------------------------------------------------
+     Delete confirmation — reusable 2-step overlay (confirm -> success)
+     shared by every CRUD's delete action. Ported 1:1 from the approved
+     design; colors kept as their own tokens (not --primary etc.) since
+     this is a deliberately distinct, attention-grabbing palette, but
+     still theme-aware so it doesn't look broken in dark mode.
+     --------------------------------------------------------------- */
+  :root {
+    --delWarnRing: #f8bb86;
+    --delConfirmBg: #3085d6;
+    --delConfirmBgHover: #2a75bd;
+    --delCancelBg: #dc3545;
+    --delCancelBgHover: #c62838;
+    --delOkBg: #6e6fed;
+    --delOkBgHover: #5c5de0;
+    --delSuccessBg: #eef9ee;
+  }
+  [data-theme="dark"] {
+    --delWarnRing: #d99a5b;
+    --delConfirmBg: #3f8fdc;
+    --delConfirmBgHover: #5b9fe0;
+    --delCancelBg: #e3495c;
+    --delCancelBgHover: #ea6b7b;
+    --delOkBg: #8586f2;
+    --delOkBgHover: #9d9ef5;
+    --delSuccessBg: #123321;
+  }
+
+  @keyframes del-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes del-scale-in {
+    from {
+      opacity: 0;
+      transform: translateY(-12px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes del-check-line {
+    from {
+      stroke-dashoffset: 60;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .del-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    z-index: 70;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+  .del-overlay.open {
+    display: flex;
+    animation: del-fade-in 0.15s ease-out;
+  }
+  .del-card {
+    background: var(--cardBg);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 420px;
+    padding: 36px 32px 32px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
+    animation: del-scale-in 0.18s ease-out;
+  }
+  .del-icon-warn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--delWarnRing);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--delWarnRing);
+    line-height: 1;
+  }
+  .del-icon-success {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--delSuccessBg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .del-icon-success path {
+    animation: del-check-line 0.35s ease-out 0.1s both;
+  }
+  .del-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--textPrimary);
+    margin: 0 0 10px;
+  }
+  .del-text {
+    font-size: 15px;
+    color: var(--textSecondary);
+    margin: 0 0 26px;
+  }
+  .del-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .del-btn-confirm {
+    background: var(--delConfirmBg);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 11px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 130px;
+    font-family: inherit;
+  }
+  .del-btn-confirm:hover {
+    background: var(--delConfirmBgHover);
+  }
+  .del-btn-cancel {
+    background: var(--delCancelBg);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 11px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 110px;
+    font-family: inherit;
+  }
+  .del-btn-cancel:hover {
+    background: var(--delCancelBgHover);
+  }
+  .del-btn-ok {
+    background: var(--delOkBg);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 11px 34px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .del-btn-ok:hover {
+    background: var(--delOkBgHover);
+  }
+
+  .footer {
+    flex-shrink: 0;
+    padding: 14px 24px;
+    border-top: 1px solid var(--border);
+    background: var(--topbarBg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--textMuted);
+  }
+
+  @media (max-width: 1024px) and (min-width: 760px) {
+    .sidebar {
+      width: 220px;
+    }
+    .sidebar.collapsed {
+      width: 72px;
+    }
+    .sidebar.collapsed:hover {
+      width: 240px;
+    }
+  }
+
+  @media (max-width: 759px) {
+    .sidebar,
+    .sidebar.collapsed {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      height: 100vh;
+      width: 260px;
+      z-index: 40;
+      transition: left 0.2s;
+      box-shadow: none;
+    }
+    .sidebar.mobile-open,
+    .sidebar.collapsed.mobile-open {
+      left: 0;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    }
+    .sidebar [data-labels],
+    .sidebar.collapsed [data-labels] {
+      display: flex;
+      opacity: 1;
+      max-width: none;
+      pointer-events: auto;
+    }
+    .sidebar .nav-text,
+    .sidebar .nav-label,
+    .sidebar.collapsed .nav-text,
+    .sidebar.collapsed .nav-label {
+      display: inline;
+      opacity: 1;
+      max-width: none;
+    }
+    .sidebar .nav-item,
+    .sidebar .nav-parent,
+    .sidebar.collapsed .nav-item,
+    .sidebar.collapsed .nav-parent {
+      justify-content: flex-start;
+      padding: 11px 14px;
+    }
+    .sidebar .logo-row,
+    .sidebar.collapsed .logo-row {
+      justify-content: flex-start;
+      padding: 0 6px;
+    }
+    .sidebar .logo-img,
+    .sidebar.collapsed .logo-img {
+      width: 42px;
+    }
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+    }
+    .icon-btn.round {
+      width: 44px;
+      height: 44px;
+    }
+    .font-btn {
+      padding: 8px 10px;
+    }
+    .subtitle {
+      display: none;
+    }
+    .topbar {
+      padding: 0 14px;
+    }
+    .topbar-right {
+      gap: 8px;
+    }
+    .logo-title {
+      font-size: 13px;
+    }
+    .footer {
+      padding: 14px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .content {
+      padding: 16px 14px 28px;
+    }
+    .blank-panel {
+      min-height: 50vh;
+    }
+    .table-inner {
+      min-width: 560px;
+    }
+    .card-head {
+      padding: 14px 16px;
+    }
+    .card-actions {
+      width: 100%;
+    }
+    .btn {
+      flex: 1;
+      justify-content: center;
+    }
+    .download-menu {
+      right: auto;
+      left: 0;
+      width: min(200px, calc(100vw - 60px));
+    }
+    .card-controls {
+      padding: 14px 16px;
+    }
+    .control-group input {
+      width: 100%;
+    }
+    .request-tabs {
+      padding: 12px;
+    }
+    .request-tab {
+      flex: 1 1 auto;
+      justify-content: center;
+      text-align: center;
+    }
+    .card-footer {
+      padding: 14px 16px;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .pagination {
+      justify-content: center;
+    }
+    .modal {
+      max-width: 100%;
+      max-height: 100vh;
+      border-radius: 0;
+    }
+    .modal-backdrop {
+      padding: 0;
+    }
+    .modal-body {
+      padding: 16px;
+    }
+    .modal-footer {
+      padding: 14px 16px;
+    }
+    .modal-footer .btn {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .topbar-right {
+      gap: 6px;
+    }
+    .font-switch {
+      padding: 2px;
+    }
+    .font-btn {
+      padding: 7px 7px;
+      font-size: 10px;
+    }
+    .avatar {
+      width: 32px;
+      height: 32px;
+      font-size: 12px;
+    }
+    .title {
+      font-size: 15px;
+    }
+    .card-actions {
+      flex-direction: column;
+    }
+    .modal-head {
+      padding: 14px 16px;
+    }
+    .modal-title {
+      font-size: 15px;
+    }
+  }
+}
